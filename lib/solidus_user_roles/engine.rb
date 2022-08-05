@@ -10,7 +10,7 @@ module SolidusUserRoles
     end
 
     def self.load_custom_permissions
-      if (ActiveRecord::Base.connection.tables & ['spree_roles','spree_permission_sets']).to_a.length == 2 # makes sure both table exist
+      if (ActiveRecord::Base.connection.tables & ['spree_roles', 'spree_permission_sets']).to_a.length == 2 # makes sure both table exist
         ::Spree::Role.non_base_roles.each do |role|
           if ::Spree.solidus_gem_version < Gem::Version.new('2.5.x')
             ::Spree::RoleConfiguration.configure do |config|
@@ -27,16 +27,15 @@ module SolidusUserRoles
       warn "Skipping role configuration: #{e.message}"
     end
 
-
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
-      unless Rails.env == 'test'
+      unless Rails.env.test?
         SolidusUserRoles::Engine.load_custom_permissions
       end
     end
 
-    config.to_prepare &method(:activate).to_proc
+    config.to_prepare(&method(:activate).to_proc)
   end
 end

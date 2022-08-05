@@ -1,4 +1,3 @@
-# encoding: UTF-8
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'solidus_user_roles'
@@ -11,11 +10,13 @@ Gem::Specification.new do |s|
   s.email     = 'acreilly3@gmail.com'
   s.homepage  = 'http://boomer.digital'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.add_dependency "solidus"
+
+  # s.files       = `git ls-files`.split("\n")
+  # s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_development_dependency 'solidus_dev_support'
   s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'solidus_dev_support'
 end
